@@ -1,99 +1,86 @@
+import { useState } from 'react'
+import { RESTAURANTS, CITIES } from '../data/tripData'
+
 export default function Food() {
-  const tokyo = [
-    { name: 'Sukiyabashi Jiro', type: 'Sushi', rating: '⭐⭐⭐ Michelin', neighborhood: 'Ginza', notes: 'World-famous omakase. Reservation essential.' },
-    { name: 'Nabezo', type: 'Hot Pot', rating: '⭐⭐⭐⭐⭐', neighborhood: 'Shibuya', notes: 'Premium wagyu shabu-shabu. Modern setting.' },
-    { name: 'Ichiran', type: 'Ramen', rating: '⭐⭐⭐⭐', neighborhood: 'Harajuku', notes: 'Tonkotsu ramen. Individual booths.' },
-    { name: 'Tsukiji Outer Market', type: 'Street Food', rating: 'Must Visit', neighborhood: 'Tsukiji', notes: 'Fresh seafood, tamagoyaki, uni. Casual & affordable.' },
-    { name: 'Gonpachi', type: 'Izakaya', rating: '⭐⭐⭐⭐', neighborhood: 'Nishi-Azabu', notes: 'Modern izakaya. Great sake selection. Lively atmosphere.' }
-  ]
-
-  const osaka = [
-    { name: 'Kiji Okonomiyaki', type: 'Okonomiyaki', rating: '⭐⭐⭐⭐⭐', neighborhood: 'Dotonbori', notes: 'Famous savory pancakes. Watch chefs cook at counter.' },
-    { name: 'Takoyaki Museum', type: 'Takoyaki', rating: '⭐⭐⭐⭐', neighborhood: 'Shinchi', notes: 'Multiple takoyaki stalls under one roof.' },
-    { name: 'Kushikatsu Daruma', type: 'Fried Skewers', rating: '⭐⭐⭐⭐', neighborhood: 'Dotonbori', notes: 'Crispy fried skewers. Double-dip sauce rule.' },
-    { name: 'Harukoma Sushi', type: 'Conveyor Belt Sushi', rating: '⭐⭐⭐⭐', neighborhood: 'Shinchi', notes: 'Fresh, affordable, quick. Perfect lunch.' },
-    { name: 'Toritama', type: 'Yakitori', rating: '⭐⭐⭐⭐⭐', neighborhood: 'Shinchi', notes: 'Grilled chicken skewers. Local favorite. Arrive early.' }
-  ]
-
-  const kyoto = [
-    { name: 'Gion Tanto', type: 'Kaiseki', rating: '⭐⭐⭐ Michelin', neighborhood: 'Gion', notes: 'Seasonal multi-course. Traditional setting.' },
-    { name: 'Yudofu Sagano', type: 'Tofu Hot Pot', rating: '⭐⭐⭐⭐', neighborhood: 'Sagano', notes: 'Silken tofu hot pot in historic house. Serene garden.' },
-    { name: 'Nishiki Market', type: 'Street Food & Shops', rating: 'Must Visit', neighborhood: 'Nishiki', notes: '100+ vendors. Pickles, tea, fish, sweets. Browse & graze.' },
-    { name: 'Hyotei', type: 'Kaiseki', rating: '⭐⭐ Michelin', neighborhood: 'Nanzenji', notes: 'Elegant seasonal cuisine. Historic setting.' },
-    { name: 'Yudofu Okutan', type: 'Tofu Cuisine', rating: '⭐⭐⭐⭐', neighborhood: 'Kurama', notes: 'Buddhist temple vegetarian tofu. Mountain setting.' }
-  ]
-
-  const drinks = [
-    { name: 'Sake Tasting Tours', type: 'Sake', locations: 'Tokyo, Kyoto', notes: 'Visit sake breweries. Learn fermentation process.' },
-    { name: 'Whisky Bars', type: 'Whisky', locations: 'Tokyo (Shibuya, Shinjuku)', notes: 'Japanese whisky (Yamazaki, Hakushu). World-class bartenders.' },
-    { name: 'Matcha Cafes', type: 'Traditional Tea', locations: 'All Cities', notes: 'Ceremonial matcha. Kyoto especially. Peaceful setting.' },
-    { name: 'Craft Beer Bars', type: 'Beer', locations: 'Tokyo, Osaka', notes: 'Rising craft beer scene. Local microbreweries.' }
-  ]
+  const [activeCity, setActiveCity] = useState('tokyo')
+  const restaurants = RESTAURANTS[activeCity] || []
+  const city = CITIES.find(c => c.id === activeCity)
 
   return (
     <div>
+      {/* Header */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(255,220,180,0.4), rgba(255,192,203,0.3))',
+        padding: '60px 20px 48px',
+        textAlign: 'center',
+        borderBottom: '1px solid rgba(212,85,143,0.15)',
+      }}>
+        <div style={{fontSize: 48, marginBottom: 12}}>🍜</div>
+        <h1 style={{marginBottom: 10}}>Food & Restaurants</h1>
+        <p style={{color: '#7a5060', fontSize: 17}}>40+ curated picks across 9 cities — sourced from wildon.earth/japan</p>
+      </div>
+
       <div className="section">
         <div className="container">
-          <h1 style={{marginBottom: 40}}>🍜 Food & Drinks</h1>
+          {/* City pill nav */}
+          <div className="city-pill-nav">
+            {CITIES.map(c => (
+              <button
+                key={c.id}
+                className={`city-pill ${activeCity === c.id ? 'active' : ''}`}
+                onClick={() => setActiveCity(c.id)}
+              >
+                {c.emoji} {c.name}
+              </button>
+            ))}
+          </div>
 
-          <div className="city-section">
-            <h2 className="city-title">🗼 Tokyo</h2>
-            <p style={{marginBottom: 24, fontSize: 16, color: '#4a4a4a'}}>From Michelin-star omakase to street food. Tokyo has everything.</p>
+          {/* City heading */}
+          {city && (
+            <div style={{marginBottom: 36, display: 'flex', alignItems: 'center', gap: 16}}>
+              <span style={{fontSize: 44}}>{city.emoji}</span>
+              <div>
+                <h2 style={{marginBottom: 4}}>{city.name}</h2>
+                <p style={{color: '#9a7a8a', fontSize: 14}}>{city.dates}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Restaurant cards */}
+          {restaurants.length === 0 ? (
+            <div style={{textAlign: 'center', padding: 60, color: '#9a7a8a'}}>
+              <div style={{fontSize: 48, marginBottom: 16}}>🍽️</div>
+              <p>No restaurants listed for this city yet</p>
+            </div>
+          ) : (
             <div className="grid">
-              {tokyo.map((r, i) => (
-                <div key={i} className="card">
+              {restaurants.map((r, i) => (
+                <div key={i} className="restaurant-card">
                   <h3>{r.name}</h3>
-                  <p className="rating">{r.rating}</p>
-                  <p><strong>{r.type}</strong> • {r.neighborhood}</p>
-                  <p style={{marginTop: 12, fontSize: 14, color: '#6b5a4a'}}>{r.notes}</p>
+                  <div className="rest-meta">
+                    <span className="tag">{r.type}</span>
+                    <span className="price-badge">{r.price}</span>
+                    {r.area && <span className="area-badge">📍 {r.area}</span>}
+                  </div>
+                  <div style={{display: 'flex', gap: 12, alignItems: 'center', marginBottom: r.notes ? 10 : 0}}>
+                    {r.rating && r.rating !== '—' && (
+                      <span className="rating">
+                        ⭐ {r.rating.includes('Bib') ? '🔴 ' + r.rating : r.rating}
+                      </span>
+                    )}
+                    {r.day && (
+                      <span style={{fontSize: 12, color: '#baa0a8'}}>{r.day}</span>
+                    )}
+                  </div>
+                  {r.notes && (
+                    <p style={{fontSize: 13, color: '#7a6a74', fontStyle: 'italic', marginTop: 6, marginBottom: 0}}>
+                      💬 {r.notes}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="city-section">
-            <h2 className="city-title">🏯 Osaka</h2>
-            <p style={{marginBottom: 24, fontSize: 16, color: '#4a4a4a'}}>Street food capital. Bold, casual, delicious. Dotonbori is the epicenter.</p>
-            <div className="grid">
-              {osaka.map((r, i) => (
-                <div key={i} className="card">
-                  <h3>{r.name}</h3>
-                  <p className="rating">{r.rating}</p>
-                  <p><strong>{r.type}</strong> • {r.neighborhood}</p>
-                  <p style={{marginTop: 12, fontSize: 14, color: '#6b5a4a'}}>{r.notes}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="city-section">
-            <h2 className="city-title">🌸 Kyoto</h2>
-            <p style={{marginBottom: 24, fontSize: 16, color: '#4a4a4a'}}>Traditional kaiseki, tofu cuisine, and historic market dining.</p>
-            <div className="grid">
-              {kyoto.map((r, i) => (
-                <div key={i} className="card">
-                  <h3>{r.name}</h3>
-                  <p className="rating">{r.rating}</p>
-                  <p><strong>{r.type}</strong> • {r.neighborhood}</p>
-                  <p style={{marginTop: 12, fontSize: 14, color: '#6b5a4a'}}>{r.notes}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="city-section">
-            <h2 className="city-title">🍶 Drinks & Beverages</h2>
-            <p style={{marginBottom: 24, fontSize: 16, color: '#4a4a4a'}}>Sake, whisky, tea, and craft beer — Japan's drinks scene is world-class.</p>
-            <div className="grid">
-              {drinks.map((d, i) => (
-                <div key={i} className="card">
-                  <h3>{d.name}</h3>
-                  <p><strong>{d.type}</strong> • {d.locations}</p>
-                  <p style={{marginTop: 12, fontSize: 14, color: '#6b5a4a'}}>{d.notes}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

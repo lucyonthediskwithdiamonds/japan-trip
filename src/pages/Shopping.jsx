@@ -45,6 +45,7 @@ export default function Shopping() {
                 <h4>Tokyo: Seisuke Knife — Kappabashi</h4>
                 <p className="rating">⭐ 4.9★ (2,356)</p>
                 <p>English staff. Flagship location. Knife Gallery also available.</p>
+                <a href="https://maps.google.com/?q=Seisuke+Knife+Kappabashi+Tokyo" target="_blank" rel="noopener noreferrer" style={{color: '#d4558f', fontWeight: 500, fontSize: 14}}>📍 View on Maps</a>
               </div>
               <div className="card">
                 <h4>Osaka: Jikko Knives — Namba</h4>
