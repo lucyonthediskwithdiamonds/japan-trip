@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <nav className="nav">
       <div className="container nav-content">
-        <Link to="/" className="nav-logo">🌸 Japan 2026</Link>
+        <Link to="/" className="nav-logo">🌸 Japan</Link>
         <ul className="nav-links">
           {LINKS.map(link => (
             <li key={link.to}>
