@@ -131,8 +131,8 @@ h3 { font-size: 24px; margin-bottom: 16px; }
 /* ── Hero ──────────────────────────────────────────────── */
 
 .hero {
-  min-height: 640px;
-  background: linear-gradient(160deg, rgba(255, 220, 235, 0.7) 0%, rgba(255, 240, 250, 0.5) 50%, rgba(230, 210, 255, 0.4) 100%);
+  min-height: 680px;
+  background: linear-gradient(160deg, #18080e 0%, #22101a 50%, #1a0c14 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,9 +147,8 @@ h3 { font-size: 24px; margin-bottom: 16px; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(216, 191, 216, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 60% 80%, rgba(255, 218, 185, 0.2) 0%, transparent 50%);
+    radial-gradient(ellipse 70% 55% at 50% 40%, rgba(212, 85, 143, 0.11) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 15% 75%, rgba(155, 89, 166, 0.07) 0%, transparent 60%);
 }
 
 .hero-content {
@@ -158,24 +157,23 @@ h3 { font-size: 24px; margin-bottom: 16px; }
 }
 
 .hero-content h1 {
-  font-size: 64px;
+  font-size: clamp(3.2rem, 9vw, 5.5rem);
+  font-style: italic;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, #d4558f 0%, #9b59a6 50%, #d4558f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: none;
+  color: rgba(255, 240, 248, 0.96);
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
 .hero-content .subtitle {
-  font-size: 22px;
-  color: #7a5060;
+  font-size: 18px;
+  color: rgba(255, 200, 220, 0.65);
   margin-bottom: 8px;
   font-family: 'Kosugi Maru', sans-serif;
 }
 
 .hero-content .dates {
-  font-size: 18px;
+  font-size: 16px;
   color: #d4558f;
   font-weight: 600;
   letter-spacing: 1px;
@@ -183,10 +181,11 @@ h3 { font-size: 24px; margin-bottom: 16px; }
 }
 
 .hero-content .route-text {
-  font-size: 14px;
-  color: #9a7a8a;
+  font-size: 13px;
+  color: rgba(255, 200, 220, 0.4);
   margin-top: 20px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
 
 .hero-decoration {
@@ -743,14 +742,15 @@ h3 { font-size: 24px; margin-bottom: 16px; }
 }
 
 .stat-pill {
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.06);
   backdrop-filter: blur(10px);
-  padding: 10px 22px;
+  padding: 8px 20px;
   border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #7a3060;
-  border: 1px solid rgba(212, 85, 143, 0.2);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 220, 240, 0.65);
+  border: 1px solid rgba(212, 85, 143, 0.25);
+  letter-spacing: 0.3px;
 }
 
 /* ── Back link ─────────────────────────────────────────── */

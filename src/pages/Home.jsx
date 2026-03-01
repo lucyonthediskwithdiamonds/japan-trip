@@ -14,7 +14,7 @@ export default function Home() {
       {/* Hero */}
       <div className="hero">
         <div className="hero-content">
-          <div style={{fontSize: 22, marginBottom: 16, color: '#c06090', fontFamily: 'Kosugi Maru, sans-serif'}}>
+          <div style={{fontSize: 13, marginBottom: 20, color: '#d4558f', fontFamily: 'Noto Sans JP, sans-serif', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 500}}>
             ✿ Simon & Monize ✿
           </div>
           <h1>Japan Trip 2026</h1>
@@ -31,9 +31,9 @@ export default function Home() {
         </div>
 
         {/* Anime chibi decorations */}
-        <div className="kawaii-deco" style={{right: '8%', top: '15%', fontSize: 90, opacity: 0.12, transform: 'rotate(-8deg)'}}>🌸</div>
-        <div className="kawaii-deco" style={{left: '6%', bottom: '20%', fontSize: 80, opacity: 0.10, transform: 'rotate(12deg)'}}>⛩️</div>
-        <div className="kawaii-deco" style={{right: '12%', bottom: '18%', fontSize: 70, opacity: 0.10}}>🗻</div>
+        <div className="kawaii-deco" style={{right: '8%', top: '15%', fontSize: 90, opacity: 0.18, transform: 'rotate(-8deg)'}}>🌸</div>
+        <div className="kawaii-deco" style={{left: '6%', bottom: '20%', fontSize: 80, opacity: 0.14, transform: 'rotate(12deg)'}}>⛩️</div>
+        <div className="kawaii-deco" style={{right: '12%', bottom: '18%', fontSize: 70, opacity: 0.14}}>🗻</div>
       </div>
 
       {/* City grid preview */}
