@@ -1,11 +1,14 @@
+import { useTripPlan } from '../context/TripPlanContext'
+import { useTripData } from '../hooks/useTripData'
+
 export default function Footer() {
+  const { plan } = useTripPlan()
+  const { TRIP_META } = useTripData()
   return (
     <footer className="footer">
       <div className="container">
-        <h3>Japan Trip 2026</h3>
-        <p>September 24 — October 9</p>
-        <p>Simon & Monize</p>
-        <p style={{marginTop: 20, fontSize: 14}}>Tokyo • Osaka • Kyoto</p>
+        <h3>{TRIP_META.name} Trip</h3>
+        {plan.travelers && <p>{plan.travelers}</p>}
       </div>
     </footer>
   )

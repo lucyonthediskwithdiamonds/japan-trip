@@ -35,47 +35,28 @@ export const CITY_STYLE = {
   Multiple: { bg: '#f0f0f0', color: '#555', border: '#ddd' },
 }
 
+const CLOTHING_SHOPS = FASHION_SHOPS.filter(s => ['Sandro', 'APC', 'Rouje', 'Isabel Marant'].includes(s.name))
+const ACCESSORIES_SHOPS = FASHION_SHOPS.filter(s => ['Le Bon Marché', 'Merci'].includes(s.name))
+
 export const SHOPPING_TABS = [
   {
-    id: 'markets',
-    icon: '🏺',
-    label: 'Markets',
+    id: 'clothing', icon: '👗', label: 'Clothing',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '🏺',
-        title: 'Markets & Food Halls',
-        sub: 'From Paris flea markets to Provençal Saturday markets — France\'s market culture is unmissable',
-        shops: MARKET_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '👗', title: 'French Fashion', sub: 'Parisian ready-to-wear and independent boutiques — understated elegance is the brief', shops: CLOTHING_SHOPS },
+      { type: 'shop-grid', emoji: '🛍️', title: 'Vintage & Flea', sub: 'Marché d\'Aligre — vintage clothing and pre-owned finds. Arrive before 10am for dealers.', shops: [MARKET_SHOPS[0]] },
     ],
   },
   {
-    id: 'fashion',
-    icon: '👗',
-    label: 'Fashion & Style',
+    id: 'accessories', icon: '👜', label: 'Accessories',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '👗',
-        title: 'French Fashion',
-        sub: 'Parisian chic from department stores to independent concept stores — understated elegance is the brief',
-        shops: FASHION_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '👜', title: 'Luxury & Concept Stores', sub: 'Department stores and concept stores with strong accessories, perfume and gift floors', shops: ACCESSORIES_SHOPS },
     ],
   },
   {
-    id: 'local',
-    icon: '🧀',
-    label: 'Local Finds',
+    id: 'household', icon: '🏠', label: 'Household',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '🧀',
-        title: 'Local & Artisan',
-        sub: 'Canelés in Bordeaux, chocolate in Lyon, olive oil in Nice — the edible and artisan treasures of each region',
-        shops: LOCAL_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '🏺', title: 'Markets & Food Halls', sub: 'Covered food markets, Provençal Saturday markets, Christmas markets — France\'s market culture is unmissable', shops: MARKET_SHOPS.slice(1) },
+      { type: 'shop-grid', emoji: '🧀', title: 'Local & Artisan Food', sub: 'Canelés in Bordeaux, chocolate in Lyon, olive oil in Nice — the finest edible gifts from each region', shops: LOCAL_SHOPS },
     ],
   },
 ]

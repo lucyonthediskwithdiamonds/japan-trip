@@ -9,16 +9,9 @@ import Home from './pages/Home'
 import CitySelect from './pages/CitySelect'
 import CityDetail from './pages/CityDetail'
 import Food from './pages/Food'
-import MapPage from './pages/MapPage'
 import Shopping from './pages/Shopping'
 import TripBuilder from './pages/TripBuilder'
 import Phrases from './pages/Phrases'
-
-function PlanBuilderGuard({ children }) {
-  const { plan } = useTripPlan()
-  if (plan.built) return <Navigate to="/cities" replace />
-  return children
-}
 
 function RequiresPlan({ children }) {
   const { plan } = useTripPlan()
@@ -38,19 +31,18 @@ function AppShell() {
     <>
       <ScrollToTop />
       {TRIP_META.cherryBlossoms && <CherryBlossoms count={20} />}
-      <Navbar />
       <Routes>
-        <Route path="/" element={<PlanBuilderGuard><TripBuilder /></PlanBuilderGuard>} />
-        <Route path="/plan" element={<PlanBuilderGuard><TripBuilder /></PlanBuilderGuard>} />
+        <Route path="/" element={<TripBuilder />} />
+        <Route path="/plan" element={<TripBuilder />} />
         <Route path="/guide" element={<RequiresPlan><Home /></RequiresPlan>} />
         <Route path="/cities" element={<RequiresPlan><CitySelect /></RequiresPlan>} />
         <Route path="/cities/:city" element={<RequiresPlan><CityDetail /></RequiresPlan>} />
         <Route path="/food" element={<RequiresPlan><Food /></RequiresPlan>} />
         <Route path="/shopping" element={<RequiresPlan><Shopping /></RequiresPlan>} />
         <Route path="/phrases" element={<RequiresPlan><Phrases /></RequiresPlan>} />
-        <Route path="/map" element={<RequiresPlan><MapPage /></RequiresPlan>} />
       </Routes>
       <Footer />
+      <Navbar />
     </>
   )
 }

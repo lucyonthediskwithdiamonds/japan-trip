@@ -34,17 +34,6 @@ export default function CitySelect() {
           ))}
         </div>
 
-        <div style={{
-          background: 'rgba(var(--color-primary-rgb), 0.05)',
-          padding: '28px 32px',
-          borderRadius: 16,
-          textAlign: 'center',
-          border: '1px solid rgba(var(--color-primary-rgb), 0.15)'
-        }}>
-          <p style={{color: '#6b4a5a', fontSize: 15}}>
-            {TRIP_META.citiesTagline}
-          </p>
-        </div>
       </div>
     </div>
   )

@@ -45,28 +45,32 @@ export const CITY_STYLE = {
   Multiple:  { bg: '#f0f6ff', color: '#1d4ed8', border: '#b0ccf4' },
 }
 
+const CLOTHING_SHOPS_ES = FASHION_SHOPS.filter(s => ['Zara Flagship Gran Vía', 'Custo Barcelona', 'Santa Eulalia', 'El Corte Inglés'].includes(s.name))
+const ACCESSORIES_SHOPS_ES = [
+  FASHION_SHOPS.find(s => s.name === 'Loewe Flagship'),
+  FASHION_SHOPS.find(s => s.name === 'Camper Flagship'),
+]
+const VINTAGE_ES = MARKET_SHOPS.filter(s => s.name === 'El Rastro')
+
 export const SHOPPING_TABS = [
   {
-    id: 'markets', icon: '🏺', label: 'Markets',
+    id: 'clothing', icon: '👗', label: 'Clothing',
     sections: [
-      { type: 'shop-grid', emoji: '🏺', title: 'Best Markets', sub: 'Food markets, flea markets and covered halls — the heartbeat of Spanish daily life', shops: MARKET_SHOPS },
+      { type: 'shop-grid', emoji: '👗', title: 'Spanish Fashion', sub: 'From Zara at source to multi-brand luxury — Spain\'s fashion credentials run deep', shops: CLOTHING_SHOPS_ES },
+      { type: 'shop-grid', emoji: '🛍️', title: 'Vintage & Flea', sub: 'El Rastro Sunday flea market — 1,000+ stalls of antiques, vintage clothing and curios. Go before 11am.', shops: VINTAGE_ES },
     ],
   },
   {
-    id: 'ceramics', icon: '🎨', label: 'Ceramics & Crafts',
+    id: 'accessories', icon: '👜', label: 'Accessories',
     sections: [
-      { type: 'shop-grid', emoji: '🎨', title: 'Ceramics & Crafts', sub: 'Andalusian azulejo tiles, Moorish pottery, Granadan marquetry — unmissable Spanish artisanship', shops: CERAMICS_SHOPS },
+      { type: 'shop-grid', emoji: '👜', title: 'Leather Goods & Footwear', sub: 'Loewe luxury leather and Camper shoes — Spain\'s finest accessories at the source', shops: ACCESSORIES_SHOPS_ES },
     ],
   },
   {
-    id: 'fashion', icon: '👗', label: 'Fashion',
+    id: 'household', icon: '🏠', label: 'Household',
     sections: [
-      { type: 'shop-grid', emoji: '👗', title: 'Spanish Fashion', sub: 'From Loewe luxury to Zara at source — Spain\'s fashion credentials run deep', shops: FASHION_SHOPS },
-    ],
-  },
-  {
-    id: 'local', icon: '🥓', label: 'Food & Local Finds',
-    sections: [
+      { type: 'shop-grid', emoji: '🏺', title: 'Markets & Food Halls', sub: 'Food markets, covered halls and pintxos bars — the heartbeat of Spanish daily life', shops: MARKET_SHOPS.filter(s => s.name !== 'El Rastro') },
+      { type: 'shop-grid', emoji: '🎨', title: 'Ceramics & Crafts', sub: 'Andalusian azulejo tiles, Moorish pottery, Lladró porcelain — unmissable Spanish artisanship', shops: CERAMICS_SHOPS },
       { type: 'shop-grid', emoji: '🥓', title: 'Food & Local Finds', sub: 'Jamón ibérico, olive oil, cava and turrón — the finest edible souvenirs in the world', shops: LOCAL_SHOPS },
     ],
   },

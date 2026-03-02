@@ -4,6 +4,14 @@ import { useTripData } from '../hooks/useTripData'
 import { useTripPlan } from '../context/TripPlanContext'
 import { mapsUrl } from '../utils/maps'
 
+const CATEGORIES = [
+  { id: 'all',        label: 'All' },
+  { id: 'restaurant', label: 'Restaurant' },
+  { id: 'bar',        label: 'Bar' },
+  { id: 'cafe',       label: 'Cafe' },
+  { id: 'bakery',     label: 'Bakery' },
+]
+
 export default function Food() {
   const { plan } = useTripPlan()
   const { RESTAURANTS, CITIES } = useTripData()
@@ -17,7 +25,12 @@ export default function Food() {
     const param = searchParams.get('city')
     return visibleCities.find(c => c.id === param)?.id ?? visibleCities[0]?.id ?? CITIES[0]?.id
   })
-  const restaurants = RESTAURANTS[activeCity] || []
+  const [activeCategory, setActiveCategory] = useState('all')
+
+  const allRestaurants = RESTAURANTS[activeCity] || []
+  const restaurants = activeCategory === 'all'
+    ? allRestaurants
+    : allRestaurants.filter(r => r.category === activeCategory)
   const city = CITIES.find(c => c.id === activeCity)
 
   return (
@@ -30,7 +43,7 @@ export default function Food() {
         borderBottom: '1px solid rgba(var(--color-primary-rgb), 0.15)',
       }}>
         <div style={{fontSize: 48, marginBottom: 12}}>🍜</div>
-        <h1 style={{marginBottom: 10}}>Food & Restaurants</h1>
+        <h1 style={{marginBottom: 10}}>Food & Drink</h1>
         <p style={{color: '#7a5060', fontSize: 17}}>Curated picks across {CITIES.length} cities</p>
       </div>
 
@@ -49,9 +62,22 @@ export default function Food() {
             ))}
           </div>
 
+          {/* Category pill nav */}
+          <div className="city-pill-nav" style={{marginTop: 12}}>
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                className={`city-pill ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
           {/* City heading */}
           {city && (
-            <div style={{marginBottom: 36, display: 'flex', alignItems: 'center', gap: 16}}>
+            <div style={{marginBottom: 36, marginTop: 32, display: 'flex', alignItems: 'center', gap: 16}}>
               <span style={{fontSize: 44}}>{city.emoji}</span>
               <div>
                 <h2 style={{marginBottom: 4}}>{city.name}</h2>
@@ -63,7 +89,7 @@ export default function Food() {
           {restaurants.length === 0 ? (
             <div style={{textAlign: 'center', padding: 60, color: '#9a7a8a'}}>
               <div style={{fontSize: 48, marginBottom: 16}}>🍽️</div>
-              <p>No restaurants listed for this city yet</p>
+              <p>No results for this filter</p>
             </div>
           ) : (
             <div className="grid">

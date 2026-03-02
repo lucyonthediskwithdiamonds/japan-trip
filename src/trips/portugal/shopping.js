@@ -32,47 +32,33 @@ export const CITY_STYLE = {
   Multiple:      { bg: '#f0f0f0', color: '#555', border: '#ddd' },
 }
 
+const CLOTHING_SHOPS_PT = MARKET_SHOPS.filter(s => ['LX Factory Sunday Market', 'Feira da Ladra'].includes(s.name))
+const ACCESSORIES_SHOPS_PT = FASHION_SHOPS.filter(s => ['Claus Porto', 'A Vida Portuguesa'].includes(s.name))
+const HOUSEHOLD_SHOPS_PT = [
+  ...MARKET_SHOPS.filter(s => !['LX Factory Sunday Market', 'Feira da Ladra'].includes(s.name)),
+  ...FASHION_SHOPS.filter(s => ['Vista Alegre', 'Manuel Tavares'].includes(s.name)),
+  ...LOCAL_SHOPS,
+]
+
 export const SHOPPING_TABS = [
   {
-    id: 'markets',
-    icon: '🏺',
-    label: 'Markets',
+    id: 'clothing', icon: '👗', label: 'Clothing',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '🏺',
-        title: 'Markets & Food Halls',
-        sub: 'From Lisbon\'s flea markets to Porto\'s iron Bolhão — Portuguese markets are full of character and life',
-        shops: MARKET_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '🛍️', title: 'Vintage & Markets', sub: 'LX Factory and Feira da Ladra — vintage clothing, local designers and flea market finds', shops: CLOTHING_SHOPS_PT },
     ],
   },
   {
-    id: 'fashion',
-    icon: '🎨',
-    label: 'Portuguese Design',
+    id: 'accessories', icon: '👜', label: 'Accessories',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '🎨',
-        title: 'Portuguese Design & Crafts',
-        sub: 'From royal porcelain to Art Nouveau soaps — Portugal\'s design heritage is extraordinary and underrated',
-        shops: FASHION_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '🧴', title: 'Soaps, Perfume & Design', sub: 'Claus Porto perfumery since 1887 and A Vida Portuguesa — Portugal\'s finest personal accessories and gifts', shops: ACCESSORIES_SHOPS_PT },
     ],
   },
   {
-    id: 'local',
-    icon: '🐟',
-    label: 'Local Finds',
+    id: 'household', icon: '🏠', label: 'Household',
     sections: [
-      {
-        type: 'shop-grid',
-        emoji: '🐟',
-        title: 'Local & Artisan',
-        sub: 'Conservas, Port wine, cork products and Madeira — the edible and artisan treasures of Portugal',
-        shops: LOCAL_SHOPS,
-      },
+      { type: 'shop-grid', emoji: '🏺', title: 'Markets & Food Halls', sub: 'From Porto\'s beautiful iron Bolhão to Madeira\'s tropical market — Portuguese markets full of character', shops: MARKET_SHOPS.filter(s => !['LX Factory Sunday Market', 'Feira da Ladra'].includes(s.name)) },
+      { type: 'shop-grid', emoji: '🫙', title: 'Ceramics & Homeware', sub: 'Vista Alegre royal porcelain, Bordallo Pinheiro ceramics — Portugal\'s extraordinary craft heritage', shops: FASHION_SHOPS.filter(s => s.name === 'Vista Alegre') },
+      { type: 'shop-grid', emoji: '🐟', title: 'Food & Wine', sub: 'Conservas, Port wine, cork products and Madeira wine — the edible and artisan treasures of Portugal', shops: [...FASHION_SHOPS.filter(s => s.name === 'Manuel Tavares'), ...LOCAL_SHOPS] },
     ],
   },
 ]

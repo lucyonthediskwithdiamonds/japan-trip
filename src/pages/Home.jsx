@@ -19,7 +19,11 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <div className="hero">
+      <div className="hero" style={{
+        backgroundImage: `url(${CITIES[0]?.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
         <div className="hero-content">
           <h1>{TRIP_META.name} Trip</h1>
 
