@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { TripPlanProvider } from './context/TripPlanContext'
 import { useTripData } from './hooks/useTripData'
 import Navbar from './components/Navbar'
@@ -16,7 +16,7 @@ import Phrases from './pages/Phrases'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useLayoutEffect(() => { window.scrollTo(0, 0) }, [pathname])
   return null
 }
 
