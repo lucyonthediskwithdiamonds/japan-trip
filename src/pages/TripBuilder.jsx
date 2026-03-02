@@ -63,7 +63,7 @@ export default function TripBuilder() {
 
   function handleFinish() {
     savePlan({ built: true, country, cities, interests })
-    navigate('/guide')
+    navigate('/cities')
   }
 
   return (
@@ -77,13 +77,13 @@ export default function TripBuilder() {
       }}>
         {plan.built && (
           <div style={{ marginBottom: 16 }}>
-            <Link to="/guide" style={{
+            <Link to="/cities" style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
               padding: '7px 16px', borderRadius: 20, fontSize: 13, fontWeight: 600,
               background: '#fff', color: '#1a1a1a',
               border: '1.5px solid #e5e5e5', textDecoration: 'none',
             }}>
-              ← View your guide
+              ← View your cities
             </Link>
           </div>
         )}

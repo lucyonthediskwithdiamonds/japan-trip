@@ -4,7 +4,7 @@ import { mapsUrl } from '../utils/maps'
 
 export default function CityDetail() {
   const { city: cityId } = useParams()
-  const { CITIES } = useTripData()
+  const { CITIES, SHOPPING_TABS } = useTripData()
   const city = CITIES.find(c => c.id === cityId)
 
   if (!city) {
@@ -19,8 +19,10 @@ export default function CityDetail() {
   }
 
   const categories = [
-    { name: 'Food & Restaurants', emoji: '🍜', path: '/food', desc: 'Restaurants, cafes, bars & street food' },
-    { name: 'All Cities', emoji: '🗺️', path: '/cities', desc: 'Explore every city on the route' },
+    { name: 'Food & Restaurants', emoji: '🍜', path: `/food?city=${cityId}`, desc: 'Restaurants, cafes, bars & street food' },
+    ...(SHOPPING_TABS ? [{ name: 'Shopping', emoji: '🛍️', path: '/shopping', desc: 'Markets, boutiques and local finds' }] : []),
+    { name: 'Phrases', emoji: '💬', path: '/phrases', desc: 'Useful local language phrases' },
+    { name: 'Map', emoji: '🗺️', path: '/map', desc: 'Open the trip map' },
   ]
 
   return (

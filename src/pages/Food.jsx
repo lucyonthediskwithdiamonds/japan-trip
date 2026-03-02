@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useTripData } from '../hooks/useTripData'
 import { useTripPlan } from '../context/TripPlanContext'
 import { mapsUrl } from '../utils/maps'
@@ -6,12 +7,16 @@ import { mapsUrl } from '../utils/maps'
 export default function Food() {
   const { plan } = useTripPlan()
   const { RESTAURANTS, CITIES } = useTripData()
+  const [searchParams] = useSearchParams()
 
   const visibleCities = plan.built && plan.cities.length > 0
     ? CITIES.filter(c => plan.cities.includes(c.id))
     : CITIES
 
-  const [activeCity, setActiveCity] = useState(visibleCities[0]?.id || CITIES[0]?.id)
+  const [activeCity, setActiveCity] = useState(() => {
+    const param = searchParams.get('city')
+    return visibleCities.find(c => c.id === param)?.id ?? visibleCities[0]?.id ?? CITIES[0]?.id
+  })
   const restaurants = RESTAURANTS[activeCity] || []
   const city = CITIES.find(c => c.id === activeCity)
 
