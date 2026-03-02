@@ -1,18 +1,26 @@
 import { Link } from 'react-router-dom'
 import { useTripData } from '../hooks/useTripData'
+import { useTripPlan } from '../context/TripPlanContext'
 
 export default function CitySelect() {
   const { CITIES, TRIP_META } = useTripData()
+  const { plan } = useTripPlan()
+
+  const visibleCities = plan.built && plan.cities.length > 0
+    ? CITIES.filter(c => plan.cities.includes(c.id))
+    : CITIES
+
+  const heading = plan.built && plan.cities.length > 0 ? 'Your Cities' : 'Choose Your City'
 
   return (
     <div className="section">
       <div className="container">
         <div style={{textAlign: 'center', marginBottom: 56}}>
-          <h1 style={{marginBottom: 12}}>Choose Your City</h1>
+          <h1 style={{marginBottom: 12}}>{heading}</h1>
         </div>
 
         <div className="city-grid">
-          {CITIES.map((city) => (
+          {visibleCities.map((city) => (
             <Link key={city.id} to={`/cities/${city.id}`} className="city-card">
               <img src={city.image} alt={city.name} className="city-card-img" />
               <div className="city-card-overlay" style={{background: `linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)`}} />

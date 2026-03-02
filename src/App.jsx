@@ -16,7 +16,7 @@ import Phrases from './pages/Phrases'
 
 function PlanBuilderGuard({ children }) {
   const { plan } = useTripPlan()
-  if (plan.built) return <Navigate to="/guide" replace />
+  if (plan.built) return <Navigate to="/cities" replace />
   return children
 }
 
