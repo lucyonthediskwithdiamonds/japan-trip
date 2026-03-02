@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { TripPlanProvider } from './context/TripPlanContext'
+import { TripPlanProvider, useTripPlan } from './context/TripPlanContext'
 import { useTripData } from './hooks/useTripData'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -13,6 +13,18 @@ import MapPage from './pages/MapPage'
 import Shopping from './pages/Shopping'
 import TripBuilder from './pages/TripBuilder'
 import Phrases from './pages/Phrases'
+
+function PlanBuilderGuard({ children }) {
+  const { plan } = useTripPlan()
+  if (plan.built) return <Navigate to="/guide" replace />
+  return children
+}
+
+function RequiresPlan({ children }) {
+  const { plan } = useTripPlan()
+  if (!plan.built) return <Navigate to="/" replace />
+  return children
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -28,15 +40,15 @@ function AppShell() {
       {TRIP_META.cherryBlossoms && <CherryBlossoms count={20} />}
       <Navbar />
       <Routes>
-        <Route path="/" element={<TripBuilder />} />
-        <Route path="/plan" element={<TripBuilder />} />
-        <Route path="/guide" element={<Home />} />
-        <Route path="/cities" element={<CitySelect />} />
-        <Route path="/cities/:city" element={<CityDetail />} />
-        <Route path="/food" element={<Food />} />
-        <Route path="/shopping" element={<Shopping />} />
-        <Route path="/phrases" element={<Phrases />} />
-        <Route path="/map" element={<MapPage />} />
+        <Route path="/" element={<PlanBuilderGuard><TripBuilder /></PlanBuilderGuard>} />
+        <Route path="/plan" element={<PlanBuilderGuard><TripBuilder /></PlanBuilderGuard>} />
+        <Route path="/guide" element={<RequiresPlan><Home /></RequiresPlan>} />
+        <Route path="/cities" element={<RequiresPlan><CitySelect /></RequiresPlan>} />
+        <Route path="/cities/:city" element={<RequiresPlan><CityDetail /></RequiresPlan>} />
+        <Route path="/food" element={<RequiresPlan><Food /></RequiresPlan>} />
+        <Route path="/shopping" element={<RequiresPlan><Shopping /></RequiresPlan>} />
+        <Route path="/phrases" element={<RequiresPlan><Phrases /></RequiresPlan>} />
+        <Route path="/map" element={<RequiresPlan><MapPage /></RequiresPlan>} />
       </Routes>
       <Footer />
     </>
