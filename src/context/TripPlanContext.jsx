@@ -8,6 +8,7 @@ const defaultPlan = {
   country: null,      // e.g. 'japan'
   cities: [],         // city ids e.g. ['tokyo', 'kyoto']
   interests: [],      // interest ids e.g. ['food', 'shopping']
+  travelers: '',      // e.g. 'Simon & Monize'
 }
 
 export const TripPlanContext = createContext(null)

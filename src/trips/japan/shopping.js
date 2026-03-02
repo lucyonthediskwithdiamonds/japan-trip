@@ -127,34 +127,12 @@ export const DENIM_TIPS = [
 
 export const SHOPPING_TABS = [
   {
-    id: 'knives', icon: '🔪', label: 'Knives',
-    sections: [
-      { type: 'wishlist', emoji: '🔪', title: 'Knife Wishlist', sub: '3 knives · Budget ~€600 total · Prioritise Bunka first, then Sujihiki, then Honesuki', items: KNIFE_WISHLIST },
-      { type: 'shop-grid', title: 'Best Knife Shops', emoji: '🗺️', shops: KNIFE_SHOPS },
-      { type: 'japan-knife-reference' },
-    ],
-  },
-  {
-    id: 'watches', icon: '⌚', label: 'Watches',
-    sections: [
-      { type: 'watch-wishlist', emoji: '⌚', title: 'Watch Wishlist', sub: 'Budget up to €1,000 per watch · Warm gold tones · Dress pieces and complications only — no sports watches', items: WATCHES },
-      { type: 'shop-grid', title: 'Best Watch Shops', emoji: '⌚', shops: WATCH_SHOPS },
-    ],
-  },
-  {
-    id: 'denim', icon: '👖', label: 'Denim',
-    sections: [
-      { type: 'brand-grid', emoji: '👖', title: 'Selvedge Denim Guide', sub: 'Japanese selvedge only · Budget €250–400 per pair · Free chain-stitch hemming at most stores', items: DENIM_BRANDS },
-      { type: 'tips', title: 'Denim Tips', tips: DENIM_TIPS },
-    ],
-  },
-  {
-    id: 'vintage', icon: '🛍️', label: 'Vintage',
+    id: 'clothing', icon: '👗', label: 'Clothing',
     sections: [
       {
         type: 'city-sections',
-        emoji: '🛍️', title: 'Vintage Shopping',
-        sub: 'Best vintage & pre-owned luxury across all three cities · Always carry passport for tax exemption',
+        emoji: '🛍️', title: 'Vintage & Pre-owned',
+        sub: 'Best vintage & pre-owned luxury across Tokyo, Osaka & Kyoto · Always carry passport for tax exemption',
         cities: [
           {
             emoji: '🗼', city: 'Tokyo',
@@ -167,12 +145,24 @@ export const SHOPPING_TABS = [
           { emoji: '🌸', city: 'Kyoto', shops: VINTAGE_KYOTO },
         ],
       },
+      { type: 'shop-grid', emoji: '👕', title: 'Clothing Boutiques', sub: 'Streetwear · Avant-garde · Workwear / Folk Art · Artisan Traditional', shops: CLOTHING_SHOPS },
+      { type: 'brand-grid', emoji: '👖', title: 'Raw Denim', sub: 'Japanese selvedge only · Budget €250–400 per pair · Free chain-stitch hemming at most stores', items: DENIM_BRANDS },
+      { type: 'tips', title: 'Denim Tips', tips: DENIM_TIPS },
     ],
   },
   {
-    id: 'clothing', icon: '👕', label: 'Clothing',
+    id: 'accessories', icon: '⌚', label: 'Accessories',
     sections: [
-      { type: 'shop-grid', emoji: '👕', title: 'Japanese Clothing', sub: 'Four aesthetics: Streetwear · Avant-garde · Workwear / Folk Art · Artisan Traditional', shops: CLOTHING_SHOPS },
+      { type: 'watch-wishlist', emoji: '⌚', title: 'Watches', sub: 'Budget up to €1,000 per watch · Warm gold tones · Dress pieces and complications only', items: WATCHES },
+      { type: 'shop-grid', title: 'Watch Shops', emoji: '⌚', shops: WATCH_SHOPS },
+    ],
+  },
+  {
+    id: 'household', icon: '🏠', label: 'Household',
+    sections: [
+      { type: 'wishlist', emoji: '🔪', title: 'Kitchen Knives', sub: '3 knives · Budget ~€600 total · Prioritise Bunka first, then Sujihiki, then Honesuki', items: KNIFE_WISHLIST },
+      { type: 'shop-grid', title: 'Knife Shops', emoji: '🗺️', shops: KNIFE_SHOPS },
+      { type: 'japan-knife-reference' },
     ],
   },
 ]

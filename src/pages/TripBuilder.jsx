@@ -38,6 +38,7 @@ export default function TripBuilder() {
   const [country, setCountry] = useState(plan.country || DEFAULT_TRIP_ID)
   const [cities, setCities] = useState(plan.cities?.length ? plan.cities : [])
   const [interests, setInterests] = useState(plan.interests?.length ? plan.interests : [])
+  const [travelers, setTravelers] = useState(plan.travelers || '')
 
   // Cities for the currently-selected country (before committing)
   const activeCities = TRIP_REGISTRY[country]?.CITIES || []
@@ -62,7 +63,7 @@ export default function TripBuilder() {
   }
 
   function handleFinish() {
-    savePlan({ built: true, country, cities, interests })
+    savePlan({ built: true, country, cities, interests, travelers })
     navigate('/cities')
   }
 
@@ -292,7 +293,24 @@ export default function TripBuilder() {
                 </p>
               )}
 
-              <div style={{ marginTop: 32, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+              <div style={{ marginTop: 32, borderTop: '1px solid #e5e5e5', paddingTop: 28 }}>
+                <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#1a1a1a', marginBottom: 8 }}>
+                  Who's traveling?
+                </label>
+                <input
+                  type="text"
+                  value={travelers}
+                  onChange={e => setTravelers(e.target.value)}
+                  placeholder="e.g. Simon & Monize"
+                  style={{
+                    width: '100%', padding: '12px 16px', fontSize: 15,
+                    border: '2px solid #e5e5e5', borderRadius: 12, fontFamily: 'inherit',
+                    outline: 'none', color: '#1a1a1a',
+                  }}
+                />
+              </div>
+
+              <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
                 <button
                   onClick={() => setStep(2)}
                   style={{

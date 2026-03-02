@@ -46,29 +46,35 @@ export const CITY_STYLE = {
   Multiple: { bg: '#f0f6ff', color: '#1d4ed8', border: '#b0ccf4' },
 }
 
+const CLOTHING_SHOPS = FASHION_SHOPS.filter(s => ['Prada (Via Montenapoleone)', 'Armani Flagship', 'Gucci Garden Galleria', 'Diesel Flagship'].includes(s.name))
+const ACCESSORIES_SHOPS = [
+  ...ARTISAN_SHOPS.filter(s => ['Signoria Firenze', 'Murrina Veneziana', 'Officina Profumo-Farmaceutica di Santa Maria Novella'].includes(s.name)),
+  FASHION_SHOPS.find(s => s.name === 'Bulgari'),
+]
+const HOUSEHOLD_ARTISAN = ARTISAN_SHOPS.filter(s => ['Giulio Giannini e Figlio', 'Alberto Valese-Ebru', 'Marzapane Roma'].includes(s.name))
+const HOUSEHOLD_FOOD = LOCAL_SHOPS.filter(s => s.name !== 'Alessi Flagship')
+const ALESSI = LOCAL_SHOPS.find(s => s.name === 'Alessi Flagship')
+
 export const SHOPPING_TABS = [
   {
-    id: 'markets', icon: '🏺', label: 'Markets',
+    id: 'clothing', icon: '👗', label: 'Clothing',
     sections: [
-      { type: 'shop-grid', emoji: '🏺', title: 'Best Markets', sub: 'From ancient fish markets to Sunday flea markets — Italy\'s markets are where real life happens', shops: MARKET_SHOPS },
+      { type: 'shop-grid', emoji: '👗', title: 'Italian Fashion & Luxury', sub: 'Prada in Milan, Gucci in Florence — Italian luxury at the source', shops: CLOTHING_SHOPS },
+      { type: 'shop-grid', emoji: '🛍️', title: 'Vintage & Flea', sub: 'Porta Portese Sunday flea market — antiques, vintage clothing and curios. Start at 7am.', shops: [MARKET_SHOPS[1]] },
     ],
   },
   {
-    id: 'artisan', icon: '✍️', label: 'Artisan',
+    id: 'accessories', icon: '👜', label: 'Accessories',
     sections: [
-      { type: 'shop-grid', emoji: '✍️', title: 'Artisan & Craft', sub: 'Florentine leather, Murano glass, marbled paper, Santa Maria Novella perfumes — the world\'s finest artisan traditions', shops: ARTISAN_SHOPS },
+      { type: 'shop-grid', emoji: '👜', title: 'Leather, Glass & Jewellery', sub: 'Florentine leather, Murano glass, Santa Maria Novella perfumes, Bulgari — wearable Italian artisanship', shops: ACCESSORIES_SHOPS },
     ],
   },
   {
-    id: 'fashion', icon: '👗', label: 'Fashion',
+    id: 'household', icon: '🏠', label: 'Household',
     sections: [
-      { type: 'shop-grid', emoji: '👗', title: 'Italian Fashion & Luxury', sub: 'Prada in Milan, Gucci in Florence, Bulgari in Rome — Italian luxury at the source', shops: FASHION_SHOPS },
-    ],
-  },
-  {
-    id: 'local', icon: '🧀', label: 'Food & Local',
-    sections: [
-      { type: 'shop-grid', emoji: '🧀', title: 'Food & Local Finds', sub: 'Truffle, aged parmigiano, Brunello wine, Modica chocolate — the finest edible Italy has to offer', shops: LOCAL_SHOPS },
+      { type: 'shop-grid', emoji: '🏺', title: 'Markets', sub: 'From ancient fish markets to morning produce markets — Italy\'s markets are where real life happens', shops: MARKET_SHOPS.filter(s => s.name !== 'Porta Portese Flea Market') },
+      { type: 'shop-grid', emoji: '✍️', title: 'Artisan & Design', sub: 'Marbled paper, Alessi homeware, artisan ceramics — the finest Italian craft for the home', shops: [...HOUSEHOLD_ARTISAN, ALESSI] },
+      { type: 'shop-grid', emoji: '🧀', title: 'Food & Local Finds', sub: 'Truffle, aged parmigiano, Brunello wine, Modica chocolate — the finest edible Italy has to offer', shops: HOUSEHOLD_FOOD },
     ],
   },
 ]

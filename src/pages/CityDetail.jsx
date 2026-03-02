@@ -22,7 +22,6 @@ export default function CityDetail() {
     { name: 'Food & Restaurants', emoji: '🍜', path: `/food?city=${cityId}`, desc: 'Restaurants, cafes, bars & street food' },
     ...(SHOPPING_TABS ? [{ name: 'Shopping', emoji: '🛍️', path: '/shopping', desc: 'Markets, boutiques and local finds' }] : []),
     { name: 'Phrases', emoji: '💬', path: '/phrases', desc: 'Useful local language phrases' },
-    { name: 'Map', emoji: '🗺️', path: '/map', desc: 'Open the trip map' },
   ]
 
   return (
@@ -39,8 +38,6 @@ export default function CityDetail() {
 
       <div className="section">
         <div className="container">
-          <Link to="/cities" className="back-link">← All Cities</Link>
-
           <p style={{fontSize: 17, color: '#5a3d4a', marginBottom: 40, lineHeight: 1.7}}>{city.desc}</p>
 
           {/* Category cards */}
