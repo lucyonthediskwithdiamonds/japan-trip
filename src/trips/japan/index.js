@@ -24,6 +24,8 @@ export const TRIP_META = {
     { emoji: '🗻', title: 'Mt. Fuji Views', desc: 'Hakone ropeway, Chureito Pagoda, and Lake Ashi pirate cruise' },
   ],
   decorations: ['🌸', '⛩️', '🗻'],
+  phraseTip: 'Japanese people appreciate any effort with the language, even if your pronunciation isn\'t perfect. A smile and sumimasen (excuse me) goes a long way everywhere.',
+  scriptFont: 'Noto Sans JP, sans-serif',
 }
 
 export * from './data'

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { TRIP_REGISTRY, DEFAULT_TRIP_ID } from '../trips/registry'
 import { useTripPlan } from '../context/TripPlanContext'
@@ -39,22 +39,18 @@ export default function TripBuilder() {
   const [cities, setCities] = useState(plan.cities?.length ? plan.cities : [])
   const [interests, setInterests] = useState(plan.interests?.length ? plan.interests : [])
 
-  // Cities for the currently-selected country (before committing)
-  const activeCities = TRIP_REGISTRY[country]?.CITIES || []
+  // Cities and interests derived from the selected country — recomputed only when country changes
+  const { activeCities, INTERESTS } = useMemo(() => {
+    const cities = TRIP_REGISTRY[country]?.CITIES || []
+    const shopTabs = TRIP_REGISTRY[country]?.SHOPPING_TABS || []
+    const specialistInterests = shopTabs
+      .filter(t => !UNIVERSAL_INTERESTS.find(u => u.id === t.id))
+      .map(t => ({ id: t.id, emoji: t.icon, label: t.label, desc: '' }))
+    return { activeCities: cities, INTERESTS: [...UNIVERSAL_INTERESTS, ...specialistInterests] }
+  }, [country])
 
-  // Interests: universal + any specialist tabs from the selected country's shopping
-  const shopTabs = TRIP_REGISTRY[country]?.SHOPPING_TABS || []
-  const specialistInterests = shopTabs
-    .filter(t => !UNIVERSAL_INTERESTS.find(u => u.id === t.id))
-    .map(t => ({ id: t.id, emoji: t.icon, label: t.label, desc: '' }))
-  const INTERESTS = [...UNIVERSAL_INTERESTS, ...specialistInterests]
-
-  function toggleCity(id) {
-    setCities(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id])
-  }
-
-  function toggleInterest(id) {
-    setInterests(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id])
+  function toggleList(setter, id) {
+    setter(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
   }
 
   function selectAll() {
@@ -194,7 +190,7 @@ export default function TripBuilder() {
                     <button
                       key={city.id}
                       className="city-card"
-                      onClick={() => toggleCity(city.id)}
+                      onClick={() => toggleList(setCities, city.id)}
                       style={{
                         border: 'none', background: 'none', cursor: 'pointer',
                         outline: selected ? '3px solid #1a1a1a' : '3px solid transparent',
@@ -266,7 +262,7 @@ export default function TripBuilder() {
                   return (
                     <button
                       key={interest.id}
-                      onClick={() => toggleInterest(interest.id)}
+                      onClick={() => toggleList(setInterests, interest.id)}
                       style={{
                         background: selected ? '#f5f5f5' : '#fff',
                         border: selected ? '2px solid #1a1a1a' : '2px solid #e5e5e5',

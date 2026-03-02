@@ -89,7 +89,7 @@ export default function Home() {
           padding: '14px 20px',
           textAlign: 'center',
         }}>
-          <p style={{margin: 0, fontSize: 14, color: '#7a3060'}}>
+          <p style={{margin: 0, fontSize: 14, color: 'var(--color-primary)'}}>
             Your trip: <strong>{plan.cities.length} {plan.cities.length === 1 ? 'city' : 'cities'}</strong>
             {plan.interests.length > 0 && <> · <strong>{plan.interests.length} interest{plan.interests.length !== 1 ? 's' : ''}</strong></>}
             {' '}— showing personalised content
@@ -157,15 +157,15 @@ export default function Home() {
           </div>
           <div className="grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'}}>
             {[
-              hasFoodInterest && {label: '🍜 Food & Restaurants', desc: 'Curated picks by city', to: '/food'},
-              hasShoppingInterest && {label: '🛍️ Shopping Guide', desc: 'Local finds and specialities', to: '/shopping'},
-              {label: '🏙️ All Cities', desc: 'Highlights, hotels & tips', to: '/cities'},
-              {label: '💬 Phrases', desc: `Speak a little ${TRIP_META.language}`, to: '/phrases'},
+              hasFoodInterest && {emoji: '🍜', label: 'Food & Restaurants', desc: 'Curated picks by city', to: '/food'},
+              hasShoppingInterest && {emoji: '🛍️', label: 'Shopping Guide', desc: 'Local finds and specialities', to: '/shopping'},
+              {emoji: '🏙️', label: 'All Cities', desc: 'Highlights, hotels & tips', to: '/cities'},
+              {emoji: '💬', label: 'Phrases', desc: `Speak a little ${TRIP_META.language}`, to: '/phrases'},
             ].filter(Boolean).map(link => (
               <Link key={link.to} to={link.to} style={{textDecoration: 'none'}}>
                 <div className="card" style={{textAlign: 'center', padding: 28, cursor: 'pointer'}}>
-                  <div style={{fontSize: 32, marginBottom: 12}}>{link.label.split(' ')[0]}</div>
-                  <h3 style={{fontSize: 16}}>{link.label.slice(3)}</h3>
+                  <div style={{fontSize: 32, marginBottom: 12}}>{link.emoji}</div>
+                  <h3 style={{fontSize: 16}}>{link.label}</h3>
                   <p>{link.desc}</p>
                 </div>
               </Link>

@@ -223,7 +223,7 @@ function WatchWishlistSection({ section }) {
   )
 }
 
-function BrandGridSection({ section, CITY_STYLE }) {
+function BrandGridSection({ section, CITY_STYLE, tripName }) {
   return (
     <div style={{ marginBottom: 40 }}>
       {section.title && <SectionHdr emoji={section.emoji} title={section.title} sub={section.sub} />}
@@ -245,7 +245,7 @@ function BrandGridSection({ section, CITY_STYLE }) {
             {d.style && <TypeTag label={d.style} />}
             {d.price && <span style={{ fontWeight: 800, color: 'var(--color-primary)', fontSize: 16 }}>{d.price}</span>}
             <p style={{ margin: 0, fontSize: 13, color: '#4a3a4a', lineHeight: 1.55 }}>{d.notes}</p>
-            <MapBtn name={d.brand || d.name} city={d.city === 'Multiple' ? 'Japan' : d.city} />
+            <MapBtn name={d.brand || d.name} city={d.city === 'Multiple' ? tripName : d.city} />
           </div>
         ))}
       </div>
@@ -351,11 +351,11 @@ function JapanKnifeReference() {
   )
 }
 
-function SectionRenderer({ section, CITY_STYLE, PRIORITY_COLOR }) {
+function SectionRenderer({ section, CITY_STYLE, PRIORITY_COLOR, tripName }) {
   if (section.type === 'shop-grid')             return <ShopGridSection section={section} CITY_STYLE={CITY_STYLE} />
   if (section.type === 'wishlist')              return <WishlistSection section={section} PRIORITY_COLOR={PRIORITY_COLOR} />
   if (section.type === 'watch-wishlist')        return <WatchWishlistSection section={section} />
-  if (section.type === 'brand-grid')            return <BrandGridSection section={section} CITY_STYLE={CITY_STYLE} />
+  if (section.type === 'brand-grid')            return <BrandGridSection section={section} CITY_STYLE={CITY_STYLE} tripName={tripName} />
   if (section.type === 'tips')                  return <TipsSection section={section} />
   if (section.type === 'city-sections')         return <CitySectionsSection section={section} CITY_STYLE={CITY_STYLE} />
   if (section.type === 'japan-knife-reference') return <JapanKnifeReference />
@@ -435,6 +435,7 @@ export default function Shopping() {
               section={section}
               CITY_STYLE={CITY_STYLE}
               PRIORITY_COLOR={PRIORITY_COLOR}
+              tripName={TRIP_META.name}
             />
           ))}
         </div>

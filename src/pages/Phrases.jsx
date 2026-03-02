@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTripData } from '../hooks/useTripData'
 
 export default function Phrases() {
   const { PRACTICAL, TRIP_META } = useTripData()
   const [activeCategory, setActiveCategory] = useState(0)
   const [copied, setCopied] = useState(null)
+  const copyTimer = useRef(null)
   const categories = PRACTICAL.phrasesByCategory
 
   function copyRomaji(romaji, index) {
     navigator.clipboard?.writeText(romaji).catch(() => {})
+    clearTimeout(copyTimer.current)
     setCopied(index)
-    setTimeout(() => setCopied(null), 1400)
+    copyTimer.current = setTimeout(() => setCopied(null), 1400)
   }
 
   const active = categories[activeCategory]
@@ -19,8 +21,8 @@ export default function Phrases() {
     <div style={{ minHeight: '100vh' }}>
       {/* Header */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(212,85,143,0.12), rgba(155,89,166,0.08))',
-        borderBottom: '1px solid rgba(212,85,143,0.12)',
+        background: 'linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.12), rgba(var(--color-primary-rgb), 0.06))',
+        borderBottom: '1px solid rgba(var(--color-primary-rgb), 0.12)',
         padding: '52px 20px 0',
         textAlign: 'center',
       }}>
@@ -33,7 +35,7 @@ export default function Phrases() {
         {/* Category tabs */}
         <div style={{
           display: 'flex', overflowX: 'auto', scrollbarWidth: 'none',
-          borderBottom: '2px solid rgba(212,85,143,0.1)',
+          borderBottom: '2px solid rgba(var(--color-primary-rgb), 0.1)',
           justifyContent: 'center',
         }}>
           {categories.map((cat, i) => (
@@ -43,14 +45,13 @@ export default function Phrases() {
               style={{
                 padding: '13px 20px', border: 'none', background: 'none',
                 cursor: 'pointer', fontFamily: 'inherit', fontSize: 14, fontWeight: 600,
-                color: activeCategory === i ? '#d4558f' : '#9a7a8a',
-                borderBottom: activeCategory === i ? '2px solid #d4558f' : '2px solid transparent',
+                color: activeCategory === i ? 'var(--color-primary)' : '#9a7a8a',
+                borderBottom: activeCategory === i ? '2px solid var(--color-primary)' : '2px solid transparent',
                 marginBottom: '-2px', whiteSpace: 'nowrap', transition: 'color 0.2s',
                 display: 'flex', alignItems: 'center', gap: 6,
               }}
             >
               <span>{cat.emoji}</span>
-              <span style={{ display: 'none' }}>{cat.category.split(' ')[0]}</span>
               <span>{cat.category}</span>
             </button>
           ))}
@@ -75,7 +76,7 @@ export default function Phrases() {
                 onClick={() => copyRomaji(phrase.romaji, i)}
                 style={{
                   background: '#fff',
-                  border: copied === i ? '1.5px solid #d4558f' : '1.5px solid rgba(0,0,0,0.07)',
+                  border: copied === i ? '1.5px solid var(--color-primary)' : '1.5px solid rgba(0,0,0,0.07)',
                   borderRadius: 14, padding: '18px 20px',
                   textAlign: 'left', cursor: 'pointer',
                   boxShadow: '0 2px 14px rgba(0,0,0,0.04)',
@@ -92,17 +93,17 @@ export default function Phrases() {
                   <div style={{ fontSize: 13, color: '#9a8a9a', marginBottom: 4, fontWeight: 500 }}>
                     {phrase.en}
                   </div>
-                  {/* Romaji */}
+                  {/* Pronunciation */}
                   <div style={{ fontSize: 16, fontWeight: 700, color: '#1a1410', marginBottom: 4 }}>
                     {phrase.romaji}
                   </div>
-                  {/* Japanese */}
-                  <div style={{ fontSize: 18, color: '#4a3a4a', fontFamily: 'Noto Sans JP, sans-serif' }}>
+                  {/* Native script */}
+                  <div style={{ fontSize: 18, color: '#4a3a4a', fontFamily: TRIP_META.scriptFont || 'inherit' }}>
                     {phrase.jp}
                   </div>
                 </div>
                 <div style={{
-                  fontSize: 11, fontWeight: 700, color: copied === i ? '#d4558f' : '#c0b0c0',
+                  fontSize: 11, fontWeight: 700, color: copied === i ? 'var(--color-primary)' : '#c0b0c0',
                   textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap',
                   flexShrink: 0,
                 }}>
@@ -112,18 +113,19 @@ export default function Phrases() {
             ))}
           </div>
 
-          {/* Tip */}
-          <div style={{
-            marginTop: 36, padding: '16px 20px',
-            background: 'rgba(212,85,143,0.06)',
-            border: '1px solid rgba(212,85,143,0.15)',
-            borderRadius: 14,
-          }}>
-            <p style={{ margin: 0, fontSize: 14, color: '#6b4a5a', lineHeight: 1.6 }}>
-              💡 <strong>Tip:</strong> Japanese people appreciate any effort with the language, even if your pronunciation isn't perfect.
-              A smile and <em>sumimasen</em> (excuse me) goes a long way everywhere.
-            </p>
-          </div>
+          {/* Trip-specific language tip */}
+          {TRIP_META.phraseTip && (
+            <div style={{
+              marginTop: 36, padding: '16px 20px',
+              background: 'rgba(var(--color-primary-rgb), 0.06)',
+              border: '1px solid rgba(var(--color-primary-rgb), 0.15)',
+              borderRadius: 14,
+            }}>
+              <p style={{ margin: 0, fontSize: 14, color: '#6b4a5a', lineHeight: 1.6 }}>
+                💡 <strong>Tip:</strong> {TRIP_META.phraseTip}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
