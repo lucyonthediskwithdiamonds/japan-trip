@@ -28,7 +28,16 @@ export default function CityDetail() {
     <div style={{minHeight: '100vh'}}>
       {/* City hero image */}
       <div className="city-hero">
-        <img src={city.image} alt={city.name} />
+        <img
+          src={city.image}
+          alt={city.name}
+          loading="lazy"
+          onError={e => {
+            e.currentTarget.style.display = 'none'
+            e.currentTarget.closest('.city-hero').style.background =
+              `linear-gradient(135deg, ${city.color}dd 0%, ${city.color}99 100%)`
+          }}
+        />
         <div className="city-hero-overlay" />
         <div className="city-hero-content" style={{width: '100%'}}>
           <h1>{city.emoji} {city.name}</h1>
