@@ -34,7 +34,7 @@ export const CITIES = [
     emoji: '🎨',
     hotel: 'Hotel Vincci Centrum / Barrio de las Letras',
     desc: 'Spain\'s grand capital — art museums, tapas culture, and a nightlife scene that starts at midnight.',
-    image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-WBGjg0DsO_g?w=800&q=80',
     color: '#8e44ad',
     highlights: [
       'Museo del Prado — Goya, Velázquez, El Greco. Europe\'s finest Old Masters collection (€15, free evenings)',
@@ -59,7 +59,7 @@ export const CITIES = [
     emoji: '💃',
     hotel: 'EME Catedral Hotel / Santa Cruz neighbourhood',
     desc: 'The soul of Andalusia — flamenco, orange trees, Moorish palaces and scorching summer heat.',
-    image: 'https://images.unsplash.com/photo-1551867633-194e4b0d4b83?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-0BmkJ72gd-0?w=800&q=80',
     color: '#e07b39',
     highlights: [
       'Real Alcázar — spectacular Mudejar royal palace, UNESCO, still used by Spanish royals (€14.50)',
